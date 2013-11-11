@@ -10,6 +10,7 @@ LOG_URL = 'https://easy-rpg.org/irc/log/easyrpg/'
 MSG_REGEX = /^\[(\d{2}:\d{2})\] <(.*)> (.*)$/
 FEED_ITEM_MAX = 20
 DIVIDE_THRESHOLD = 10 * 60 # ten minutes
+FEED_URL = 'http://easyrpg-irc-log-feed.herokuapp.com/'
 
 FeedItems = []
 
@@ -88,8 +89,9 @@ get '/' do
     maker.channel.author = 'EasyRPG Team'
     maker.channel.updated = Time.now.to_s
     maker.channel.link = LOG_URL
-    maker.channel.about = "feed generated from #{LOG_URL}"
+    maker.channel.id = FEED_URL
     maker.channel.title = '#EasyRPG log feed'
+    maker.channel.description = "feed generated from #{LOG_URL}"
 
     FeedItems.each do |f|
       maker.items.new_item do |item|
